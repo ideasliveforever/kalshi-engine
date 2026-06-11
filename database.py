@@ -95,11 +95,11 @@ def insert_tick(ticker, series, category, market_data):
 
     import time
 
-    # Pull raw values — Kalshi returns prices in cents (0-100)
-    yes_bid = market_data.get("yes_bid")        # e.g. 62
-    yes_ask = market_data.get("yes_ask")        # e.g. 64
-    no_bid  = market_data.get("no_bid")
-    no_ask  = market_data.get("no_ask")
+    # Pull raw values — Kalshi returns prices in dollars (0.99,1.00)
+    yes_bid = float(market_data.get("yes_bid_dollars", 0) or 0) * 100
+    yes_ask = float(market_data.get("yes_ask_dollars", 0) or 0) * 100
+    no_bid  = float(market_data.get("no_bid_dollars", 0) or 0) * 100
+    no_ask  = float(market_data.get("no_ask_dollars", 0) or 0) * 100
 
     # Kalshi also returns order book depth separately sometimes,
     # but best proxy from REST is just bid vs ask as a simple imbalance.
